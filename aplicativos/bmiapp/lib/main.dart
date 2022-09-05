@@ -38,20 +38,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60),
+          padding: const EdgeInsets.symmetric(horizontal: 75, vertical: 60),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 50,
-              ),
+              // const SizedBox(
+              //   height: 50,
+              // ),
               const Text(
                 'BMI Calculator',
                 style: TextStyle(
                   fontSize: 23,
                   fontWeight: FontWeight.bold,
                   color: Colors.deepPurple,
-                  fontStyle: FontStyle.italic,
+                  // fontStyle: FontStyle.italic,
+                  letterSpacing: 10,
+                  backgroundColor: Colors.amber,
                 ),
               ),
               const SizedBox(
@@ -78,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: () {},
                 child: const Text('CALCULAR'),
-              )
+              ),
             ],
           ),
         ),
