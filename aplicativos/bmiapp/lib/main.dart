@@ -1,3 +1,5 @@
+import 'package:bmiapp/pages/bmi_page.dart';
+import 'package:bmiapp/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,76 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const MyHomePage(title: 'BMI App'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 75, vertical: 60),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // const SizedBox(
-              //   height: 50,
-              // ),
-              const Text(
-                'BMI Calculator',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  // fontStyle: FontStyle.italic,
-                  letterSpacing: 10,
-                  backgroundColor: Colors.amber,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Digite seu nome',
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Digite sua altura(m)',
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Digite seu peso(kg)',
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('CALCULAR'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // home: const BMIPage(title: 'BMI App'),
+      initialRoute: '/home',
+      routes: {
+        '/bmi': (context) => const BMIPage(title: 'BMI App'),
+        '/home': (context) => const HomePage(),
+      },
     );
   }
 }
