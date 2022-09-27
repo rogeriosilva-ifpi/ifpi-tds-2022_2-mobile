@@ -1,5 +1,7 @@
 import 'package:bmiapp/pages/bmi_page.dart';
+import 'package:bmiapp/pages/fuel_page.dart';
 import 'package:bmiapp/pages/home_page.dart';
+import 'package:bmiapp/pages/list_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/bmi': (context) => const BMIPage(title: 'BMI App'),
         '/home': (context) => const HomePage(),
+        '/fuel': (context) => FuelPage(),
+        '/list': (context) => const ListPage(),
       },
     );
   }

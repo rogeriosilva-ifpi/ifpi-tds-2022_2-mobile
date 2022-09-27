@@ -7,10 +7,32 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pagina Inicial'),
+        title: const Text('My Tools'),
       ),
-      body: const Center(
-        child: Text('HOME'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              child: const Text('Calculate BMI'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/bmi');
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/fuel');
+              },
+              child: const Text('Fuel App'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/list');
+              },
+              child: const Text('List App'),
+            )
+          ],
+        ),
       ),
     );
   }
