@@ -13,11 +13,12 @@ class ListPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         children: const [
           Card(
-            color: Colors.amber,
+            // color: Colors.amber,
             elevation: 4,
             child: ListTile(
               leading: Icon(Icons.battery_1_bar),
               title: Text('Ana Helem'),
+              subtitle: Text('She is a cool girl!'),
               trailing: Icon(
                 Icons.star,
                 color: Colors.pinkAccent,
@@ -46,6 +47,28 @@ class ListPage extends StatelessWidget {
               leading: Icon(Icons.ac_unit),
               title: Text('Bruna Silva'),
               trailing: Icon(Icons.star_border),
+            ),
+          ),
+          Card(
+            elevation: 4,
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                backgroundImage: AssetImage("assets/dog1.jpeg"),
+              ),
+              title: Text('Lesse Silva'),
+              subtitle: Text('It\'s a good dog!'),
+              trailing: Icon(Icons.star_border),
+            ),
+          ),
+          Card(
+            elevation: 4,
+            child: ListTile(
+              leading: Icon(Icons.ac_unit),
+              title: Text('Bruno Silva'),
+              trailing: CircleAvatar(
+                backgroundImage: AssetImage("assets/dog6.png"),
+              ),
             ),
           ),
         ],
