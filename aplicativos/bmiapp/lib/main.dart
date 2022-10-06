@@ -1,5 +1,6 @@
 import 'package:bmiapp/pages/animals_page.dart';
 import 'package:bmiapp/pages/bmi_page.dart';
+import 'package:bmiapp/pages/counter_page.dart';
 import 'package:bmiapp/pages/fuel_page.dart';
 import 'package:bmiapp/pages/home_page.dart';
 import 'package:bmiapp/pages/list_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/fuel': (context) => FuelPage(),
         '/list': (context) => const ListPage(),
         '/animals': (context) => const AnimalsPage(),
+        '/counter': (context) => const CounterPage(),
       },
     );
   }

@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
               child: const Text('Calculate BMI'),
@@ -36,6 +37,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/animals');
               },
               child: const Text('Animals List'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/counter');
+              },
+              child: const Text('Counter App'),
             )
           ],
         ),
