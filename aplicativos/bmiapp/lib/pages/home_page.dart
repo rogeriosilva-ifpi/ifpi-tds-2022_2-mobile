@@ -43,6 +43,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/counter');
               },
               child: const Text('Counter App'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/alunos');
+              },
+              child: const Text('Alunos App'),
             )
           ],
         ),
