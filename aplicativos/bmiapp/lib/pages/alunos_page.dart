@@ -1,4 +1,6 @@
+import 'package:bmiapp/database/database_helper.dart';
 import 'package:bmiapp/models/nota.dart';
+import 'package:bmiapp/pages/components/form_title.dart';
 import 'package:bmiapp/pages/components/item_nota.dart';
 import 'package:bmiapp/pages/components/my_primary_button.dart';
 import 'package:flutter/material.dart';
@@ -17,19 +19,39 @@ class _AlunosPageState extends State<AlunosPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  late Nota _nota;
+  var isEditing = false;
+
   final List<Nota> notas = [
     Nota(nome: "Madalena Silva", nota1: 4.5, nota2: 9.1)
   ];
 
-  void _addNovaNota() {
-    if (_formKey.currentState!.validate()) {
-      final nota = Nota(
-        nome: nameController.text,
-        nota1: double.parse(nota1Controller.text),
-        nota2: double.parse(nota2Controller.text),
-      );
+  late final DatabaseHelper dbHelper;
 
-      notas.add(nota);
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHelper();
+    dbHelper.initDB().whenComplete(() => setState(() {}));
+  }
+
+  void _addOrUpdateNota() {
+    if (_formKey.currentState!.validate()) {
+      if (!isEditing) {
+        final nota = Nota(
+          nome: nameController.text,
+          nota1: double.parse(nota1Controller.text),
+          nota2: double.parse(nota2Controller.text),
+        );
+
+        dbHelper.addNota(nota);
+        // notas.add(nota);
+      } else {
+        _nota.nome = nameController.text;
+        _nota.nota1 = double.parse(nota1Controller.text);
+        _nota.nota2 = double.parse(nota2Controller.text);
+        isEditing = false;
+      }
 
       _resetDados();
 
@@ -39,15 +61,23 @@ class _AlunosPageState extends State<AlunosPage> {
   }
 
   _populateForm(int index) {
-    nameController.text = notas[index].nome;
-    nota1Controller.text = notas[index].nota1.toString();
-    nota2Controller.text = notas[index].nota2.toString();
+    isEditing = true;
+    _nota = notas[index];
+    nameController.text = _nota.nome;
+    nota1Controller.text = _nota.nota1.toString();
+    nota2Controller.text = _nota.nota2.toString();
+
+    setState(() {});
   }
 
   void _resetDados() {
     nameController.clear();
     nota1Controller.clear();
     nota2Controller.clear();
+
+    isEditing = false;
+
+    setState(() {});
   }
 
   @override
@@ -62,20 +92,11 @@ class _AlunosPageState extends State<AlunosPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Dados',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 5,
-                      shadows: [
-                        Shadow(
-                          color: Colors.blueGrey,
-                          offset: Offset(-2, -2),
-                          blurRadius: 3,
-                        ),
-                      ],
-                    ),
+                  const FormTitle(
+                    title: 'Dados',
+                  ),
+                  const FormTitle(
+                    title: 'do Aluno',
                   ),
                   const SizedBox(
                     height: 5,
@@ -150,8 +171,8 @@ class _AlunosPageState extends State<AlunosPage> {
                     height: 12,
                   ),
                   MyPrimaryButton(
-                    label: 'Salvar Nota',
-                    onPressed: _addNovaNota,
+                    label: isEditing ? 'Atualizar nota' : 'Salvar nota',
+                    onPressed: _addOrUpdateNota,
                   ),
                   TextButton(
                     onPressed: _resetDados,
@@ -168,46 +189,50 @@ class _AlunosPageState extends State<AlunosPage> {
               height: 8,
             ),
             Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: notas.length,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: Key('$index'),
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 10),
-                      child: const Icon(Icons.delete_forever),
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => _populateForm(index),
-                      child: ItemNota(
-                        name: notas[index].nome,
-                        nota1: notas[index].nota1,
-                        nota2: notas[index].nota2,
-                        media: notas[index].media,
-                      ),
-                    ),
-                    onDismissed: (direction) {
-                      notas.removeAt(index);
-                      setState(() {});
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 5,
-                          backgroundColor: Colors.purpleAccent,
-                          duration: Duration(seconds: 2),
-                          content: Text('Nota Removida!'),
+              child: FutureBuilder<List<Nota>>(
+                future: dbHelper.db != null ? dbHelper.getAllNotas() : null,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      final nota = snapshot.data![index];
+                      return Dismissible(
+                        key: Key(nota.nome),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 10),
+                          child: const Icon(Icons.delete_forever),
                         ),
+                        child: ItemNota(
+                          nota: nota,
+                          onTap: _populateForm,
+                          index: index,
+                        ),
+                        onDismissed: (direction) {
+                          notas.removeAt(index);
+                          setState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              elevation: 5,
+                              backgroundColor: Colors.purpleAccent,
+                              duration: Duration(seconds: 2),
+                              content: Text('Nota Removida!'),
+                            ),
+                          );
+                        },
                       );
                     },
                   );
                 },
-                // shrinkWrap: true,
               ),
-            )
+            ),
           ],
         ),
       ),
