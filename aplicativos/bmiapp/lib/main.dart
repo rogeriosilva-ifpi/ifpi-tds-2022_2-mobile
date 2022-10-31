@@ -1,3 +1,4 @@
+import 'package:bmiapp/pages/alunos_page.dart';
 import 'package:bmiapp/pages/animals_page.dart';
 import 'package:bmiapp/pages/bmi_page.dart';
 import 'package:bmiapp/pages/counter_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/animals': (context) => const AnimalsPage(),
         '/counter': (context) => const CounterPage(),
         '/tasks': (context) => const TasksPage(),
+        '/alunos': (context) => const AlunosPage(),
       },
     );
   }

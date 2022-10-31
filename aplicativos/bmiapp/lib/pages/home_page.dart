@@ -48,7 +48,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/tasks');
               },
-              child: const Text('Tasks App'),
+              child: const Text('Alunos App'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/alunos');
+              },
+              child: const Text('Alunos App'),
             )
           ],
         ),
