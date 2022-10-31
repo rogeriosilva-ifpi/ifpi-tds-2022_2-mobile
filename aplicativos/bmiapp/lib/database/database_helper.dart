@@ -39,9 +39,28 @@ class DatabaseHelper {
     return id;
   }
 
+  Future<int> updateNota(Nota nota) async {
+    int count = await db!.update(
+      'notas',
+      nota.toMap(),
+      where: 'id = ?',
+      whereArgs: [nota.id],
+    );
+
+    return count;
+  }
+
   Future<List<Nota>> getAllNotas() async {
     final list = await db!.query('notas');
     final notas = list.map((item) => Nota.fromMap(item)).toList();
     return notas;
+  }
+
+  Future<void> deleteNota(Nota nota) async {
+    await db!.delete(
+      'notas',
+      where: 'id = ?',
+      whereArgs: [nota.id],
+    );
   }
 }

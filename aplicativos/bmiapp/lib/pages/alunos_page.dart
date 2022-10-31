@@ -23,7 +23,7 @@ class _AlunosPageState extends State<AlunosPage> {
   var isEditing = false;
 
   final List<Nota> notas = [
-    Nota(nome: "Madalena Silva", nota1: 4.5, nota2: 9.1)
+    // Nota(nome: "Madalena Silva", nota1: 4.5, nota2: 9.1)
   ];
 
   late final DatabaseHelper dbHelper;
@@ -35,7 +35,7 @@ class _AlunosPageState extends State<AlunosPage> {
     dbHelper.initDB().whenComplete(() => setState(() {}));
   }
 
-  void _addOrUpdateNota() {
+  Future<void> _saveNota() async {
     if (_formKey.currentState!.validate()) {
       if (!isEditing) {
         final nota = Nota(
@@ -51,6 +51,7 @@ class _AlunosPageState extends State<AlunosPage> {
         _nota.nota1 = double.parse(nota1Controller.text);
         _nota.nota2 = double.parse(nota2Controller.text);
         isEditing = false;
+        await dbHelper.updateNota(_nota);
       }
 
       _resetDados();
@@ -60,9 +61,22 @@ class _AlunosPageState extends State<AlunosPage> {
     }
   }
 
-  _populateForm(int index) {
+  void _removeNota(Nota nota) {
+    dbHelper.deleteNota(nota);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        elevation: 5,
+        backgroundColor: Colors.purpleAccent,
+        duration: Duration(seconds: 2),
+        content: Text('Nota Removida!'),
+      ),
+    );
+    setState(() {});
+  }
+
+  _populateForm(Nota nota) {
     isEditing = true;
-    _nota = notas[index];
+    _nota = nota;
     nameController.text = _nota.nome;
     nota1Controller.text = _nota.nota1.toString();
     nota2Controller.text = _nota.nota2.toString();
@@ -172,7 +186,7 @@ class _AlunosPageState extends State<AlunosPage> {
                   ),
                   MyPrimaryButton(
                     label: isEditing ? 'Atualizar nota' : 'Salvar nota',
-                    onPressed: _addOrUpdateNota,
+                    onPressed: _saveNota,
                   ),
                   TextButton(
                     onPressed: _resetDados,
@@ -201,32 +215,9 @@ class _AlunosPageState extends State<AlunosPage> {
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
                       final nota = snapshot.data![index];
-                      return Dismissible(
-                        key: Key(nota.nome),
-                        direction: DismissDirection.endToStart,
-                        background: Container(
-                          color: Colors.red,
-                          alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.only(right: 10),
-                          child: const Icon(Icons.delete_forever),
-                        ),
-                        child: ItemNota(
-                          nota: nota,
-                          onTap: _populateForm,
-                          index: index,
-                        ),
-                        onDismissed: (direction) {
-                          notas.removeAt(index);
-                          setState(() {});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              elevation: 5,
-                              backgroundColor: Colors.purpleAccent,
-                              duration: Duration(seconds: 2),
-                              content: Text('Nota Removida!'),
-                            ),
-                          );
-                        },
+                      return ItemNota(
+                        nota: nota,
+                        onTap: _populateForm,
                       );
                     },
                   );

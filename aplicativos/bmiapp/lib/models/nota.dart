@@ -1,9 +1,11 @@
 class Nota {
+  int? id;
   String nome;
   double nota1;
   double nota2;
 
   Nota({
+    this.id,
     required this.nome,
     required this.nota1,
     required this.nota2,
@@ -13,7 +15,8 @@ class Nota {
     return (nota1 + nota2) / 2.0;
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
+        "id": id,
         "nome": nome,
         "nota1": nota1,
         "nota2": nota2,
@@ -21,6 +24,7 @@ class Nota {
 
   factory Nota.fromMap(Map<String, dynamic> map) {
     return Nota(
+      id: map['id'],
       nome: map['nome'],
       nota1: map['nota1'],
       nota2: map['nota2'],
