@@ -22,17 +22,14 @@ class _AlunosPageState extends State<AlunosPage> {
   late Nota _nota;
   var isEditing = false;
 
-  final List<Nota> notas = [
-    // Nota(nome: "Madalena Silva", nota1: 4.5, nota2: 9.1)
-  ];
-
+  // No State (Page --> StatefulWidget)
   late final DatabaseHelper dbHelper;
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
-    dbHelper.initDB().whenComplete(() => setState(() {}));
+    dbHelper.initDB().whenComplete(() async => {setState(() {})});
   }
 
   Future<void> _saveNota() async {
@@ -45,7 +42,6 @@ class _AlunosPageState extends State<AlunosPage> {
         );
 
         dbHelper.addNota(nota);
-        // notas.add(nota);
       } else {
         _nota.nome = nameController.text;
         _nota.nota1 = double.parse(nota1Controller.text);
@@ -218,6 +214,7 @@ class _AlunosPageState extends State<AlunosPage> {
                       return ItemNota(
                         nota: nota,
                         onTap: _populateForm,
+                        onDismissed: _removeNota,
                       );
                     },
                   );

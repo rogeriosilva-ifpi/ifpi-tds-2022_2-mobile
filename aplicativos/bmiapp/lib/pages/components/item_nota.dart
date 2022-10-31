@@ -5,12 +5,14 @@ import '../../models/nota.dart';
 class ItemNota extends StatelessWidget {
   final Nota nota;
   final Function(Nota nota) onTap;
+  final Function(Nota nota) onDismissed;
 
-  const ItemNota({
-    Key? key,
-    required this.nota,
-    required this.onTap,
-  }) : super(key: key);
+  const ItemNota(
+      {Key? key,
+      required this.nota,
+      required this.onTap,
+      required this.onDismissed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class ItemNota extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: const Icon(Icons.delete_forever),
       ),
+      onDismissed: (direction) => onDismissed(nota),
       child: Card(
         child: InkWell(
           onTap: () {

@@ -14,6 +14,8 @@ class DatabaseHelper {
     return _databaseHelper;
   }
 
+  // demais métodos
+
   Future<void> initDB() async {
     String path = await getDatabasesPath();
     db = await openDatabase(
