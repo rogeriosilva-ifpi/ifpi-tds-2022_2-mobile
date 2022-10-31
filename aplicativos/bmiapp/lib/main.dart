@@ -4,6 +4,7 @@ import 'package:bmiapp/pages/counter_page.dart';
 import 'package:bmiapp/pages/fuel_page.dart';
 import 'package:bmiapp/pages/home_page.dart';
 import 'package:bmiapp/pages/list_page.dart';
+import 'package:bmiapp/pages/tasks_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/list': (context) => const ListPage(),
         '/animals': (context) => const AnimalsPage(),
         '/counter': (context) => const CounterPage(),
+        '/tasks': (context) => const TasksPage(),
       },
     );
   }

@@ -31,55 +31,72 @@ class _CounterPageState extends State<CounterPage> {
         // leading: const Icon(Icons.arrow_back),
         title: const Text('App Contador'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Contador',
-              style: TextStyle(
-                fontSize: 24,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Contador',
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Nota 1',
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Ink(
-                  decoration: const ShapeDecoration(
-                    shape: CircleBorder(),
-                    color: Colors.deepPurple,
-                  ),
-                  child: IconButton(
-                    onPressed: decrementar,
-                    icon: const Icon(Icons.remove),
-                    color: Colors.white,
+              Flexible(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Nota 2',
                   ),
                 ),
-                Text(
-                  '$count',
-                  style: const TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                  ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Ink(
+                decoration: const ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: Colors.deepPurple,
                 ),
-                Ink(
-                  decoration: const ShapeDecoration(
-                    shape: CircleBorder(),
-                    color: Colors.deepPurple,
-                  ),
-                  child: IconButton(
-                    onPressed: incrementar,
-                    icon: const Icon(Icons.add),
-                    color: Colors.white,
-                  ),
+                child: IconButton(
+                  onPressed: decrementar,
+                  icon: const Icon(Icons.remove),
+                  color: Colors.white,
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Text(
+                '$count',
+                style: const TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Ink(
+                decoration: const ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: Colors.deepPurple,
+                ),
+                child: IconButton(
+                  onPressed: incrementar,
+                  icon: const Icon(Icons.add),
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
