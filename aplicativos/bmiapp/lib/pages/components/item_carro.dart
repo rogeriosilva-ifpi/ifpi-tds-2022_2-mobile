@@ -1,18 +1,17 @@
+import 'package:bmiapp/models/carro.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/nota.dart';
+class ItemCarro extends StatelessWidget {
+  final Carro carro;
+  // final Function(Nota nota) onTap;
+  // final Function(Nota nota) onDismissed;
 
-class ItemNota extends StatelessWidget {
-  final Nota nota;
-  final Function(Nota nota) onTap;
-  final Function(Nota nota) onDismissed;
-
-  const ItemNota(
-      {Key? key,
-      required this.nota,
-      required this.onTap,
-      required this.onDismissed})
-      : super(key: key);
+  const ItemCarro({
+    Key? key,
+    required this.carro,
+    // required this.onTap,
+    // required this.onDismissed
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,58 +24,47 @@ class ItemNota extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10),
         child: const Icon(Icons.heart_broken),
       ),
-      onDismissed: (direction) => onDismissed(nota),
+      // onDismissed: (direction) => onDismissed(carro),
       child: Card(
         child: InkWell(
           onTap: () {
-            onTap(nota);
+            // onTap(carro);
           },
           child: ListTile(
             leading: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.stadium,
-                    color: nota.media >= 7 ? Colors.blue : Colors.red),
+              children: const [
+                Icon(Icons.car_rental, color: Colors.blue),
               ],
             ),
             title: Text(
-              nota.nome,
+              carro.nome,
               style: const TextStyle(fontSize: 14),
             ),
             subtitle: Row(
               children: [
                 Text(
-                  'Nota 1: ${nota.nota1.toStringAsFixed(1)}',
+                  carro.nome,
                   style: const TextStyle(
                     fontSize: 10,
                     // color: nota1 >= 7 ? Colors.blue : Colors.red,
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Nota 2: ${nota.nota2.toStringAsFixed(1)}',
-                  style: const TextStyle(
-                    fontSize: 10,
-                    // color: nota2 >= 7 ? Colors.blue : Colors.red,
-                  ),
-                ),
+                )
               ],
             ),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  nota.media.toStringAsFixed(1),
-                  style: TextStyle(
+                  '${carro.id}',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: nota.media >= 7 ? Colors.black : Colors.red,
+                    color: Colors.black,
                   ),
                 ),
                 const Text(
-                  'Média',
+                  'ID',
                   style: TextStyle(
                     fontSize: 10,
                   ),

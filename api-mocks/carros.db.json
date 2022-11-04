@@ -1,0 +1,29 @@
+{
+  "carros": [
+    {
+      "id": 1,
+      "nome": "Argo",
+      "montadoraId": 1
+    },
+    {
+      "nome": "VW Polo",
+      "montadoraId": 1,
+      "id": 2
+    },
+    {
+      "nome": "Fastback",
+      "montadoraId": 1,
+      "id": 3
+    }
+  ],
+  "montadoras": [
+    {
+      "nome": "FIAT",
+      "id": 1
+    },
+    {
+      "nome": "VW",
+      "id": 2
+    }
+  ]
+}
