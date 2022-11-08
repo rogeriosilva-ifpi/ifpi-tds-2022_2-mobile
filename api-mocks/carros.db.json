@@ -1,29 +1,33 @@
 {
-  "carros": [
+  "usuarios": [
     {
       "id": 1,
-      "nome": "Argo",
-      "montadoraId": 1
-    },
+      "nome": "Rogério da Silva",
+      "login": "rogerio410",
+      "senha": "abcd1234"
+    }
+  ],
+  "carros": [
     {
-      "nome": "VW Polo",
+      "nome": "Fastback",
       "montadoraId": 1,
       "id": 2
     },
     {
-      "nome": "Fastback",
+      "nome": "Strada",
       "montadoraId": 1,
       "id": 3
+    },
+    {
+      "nome": "Uno",
+      "montadoraId": 1,
+      "id": 4
     }
   ],
   "montadoras": [
     {
-      "nome": "FIAT",
-      "id": 1
-    },
-    {
-      "nome": "VW",
-      "id": 2
+      "id": 1,
+      "nome": "FIAT"
     }
   ]
 }
