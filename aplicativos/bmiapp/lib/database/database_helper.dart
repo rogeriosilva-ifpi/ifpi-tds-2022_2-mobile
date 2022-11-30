@@ -17,8 +17,6 @@ class DatabaseHelper {
     return _databaseHelper;
   }
 
-  // demais métodos
-
   Future<void> initDB() async {
     sqfliteFfiInit();
 
@@ -72,6 +70,7 @@ class DatabaseHelper {
   }
 
   Future<List<Nota>> getAllNotas() async {
+    // final list = await db!.execute("SELECT * from Notas");
     final list = await db!.query('notas');
     final notas = list.map((item) => Nota.fromMap(item)).toList();
     return notas;

@@ -1,0 +1,33 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Rogério da Silva",
+      "login": "rogerio410",
+      "senha": "abcd1234"
+    }
+  ],
+  "carros": [
+    {
+      "nome": "Fastback",
+      "montadoraId": 1,
+      "id": 2
+    },
+    {
+      "nome": "Strada",
+      "montadoraId": 1,
+      "id": 3
+    },
+    {
+      "nome": "Uno",
+      "montadoraId": 1,
+      "id": 4
+    }
+  ],
+  "montadoras": [
+    {
+      "id": 1,
+      "nome": "FIAT"
+    }
+  ]
+}
