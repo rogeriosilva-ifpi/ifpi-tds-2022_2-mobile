@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:path/path.dart' as path_pkg;
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../models/nota.dart';
 
@@ -17,23 +20,39 @@ class DatabaseHelper {
   // demais métodos
 
   Future<void> initDB() async {
-    String path = await getDatabasesPath();
-    db = await openDatabase(
-      path_pkg.join(path, 'notas.db'),
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute(
-          """
+    sqfliteFfiInit();
+
+    const sqlCreateDb = """
             CREATE TABLE notas (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               nome TEXT NOT NULL,
               nota1 FLOAT NOT NULL,
               nota2 FLOAT NOT NULL
             )
-        """,
-        );
-      },
-    );
+        """;
+
+    String path = await getDatabasesPath();
+    final dbFile = path_pkg.join(path, 'notas.db');
+
+    if (Platform.isLinux) {
+      db = await databaseFactoryFfi.openDatabase(
+        dbFile,
+        options: OpenDatabaseOptions(
+          version: 1,
+          onCreate: (db, version) async {
+            await db.execute(sqlCreateDb);
+          },
+        ),
+      );
+    } else {
+      db = await openDatabase(
+        dbFile,
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute(sqlCreateDb);
+        },
+      );
+    }
   }
 
   Future<int> addNota(Nota nota) async {

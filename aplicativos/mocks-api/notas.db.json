@@ -1,0 +1,22 @@
+{
+  "notas": [
+    {
+      "nome": "André Amigo",
+      "nota1": 10,
+      "nota2": 8.8,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nome": "Rogério Romântico",
+      "nota1": 8.6,
+      "nota2": 7.5
+    },
+    {
+      "id": 4,
+      "nome": "Gabriel Gentil",
+      "nota1": 7.8,
+      "nota2": 10
+    }
+  ]
+}

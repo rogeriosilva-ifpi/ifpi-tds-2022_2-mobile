@@ -1,8 +1,8 @@
 class Nota {
   int? id;
   String nome;
-  double nota1;
-  double nota2;
+  num nota1;
+  num nota2;
 
   Nota({
     this.id,
@@ -10,6 +10,8 @@ class Nota {
     required this.nota1,
     required this.nota2,
   });
+
+  // demais métodos
 
   double get media {
     return (nota1 + nota2) / 2.0;
@@ -30,4 +32,18 @@ class Nota {
       nota2: map['nota2'],
     );
   }
+
+  // Para HTTP API
+  factory Nota.fromJson(Map<String, dynamic> json) => Nota(
+      nome: json['nome'],
+      nota1: json['nota1'],
+      nota2: json['nota2'],
+      id: json['id']);
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nome': nome,
+        'nota1': nota1,
+        'nota2': nota2,
+      };
 }
